@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+./main.py &
+
+sleep 7200
+sudo poweroff
+
