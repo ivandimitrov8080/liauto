@@ -9,7 +9,7 @@ from selenium.common.exceptions import NoSuchElementException, StaleElementRefer
 
 options = Options()
 options.add_argument(r"user-data-dir=/home/ivand/.config/chromium")
-options.add_argument(r"profile-directory=Profile 2")
+options.add_argument(r"profile-directory=Profile 10")
 driver = webdriver.Chrome(options=options)
 driver.implicitly_wait(1)
 
