@@ -1,7 +1,5 @@
-#!/usr/bin/env /usr/bin/python
-
+#!/usr/bin/env python
 import time
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.select import Select
@@ -12,8 +10,7 @@ from selenium.common.exceptions import NoSuchElementException, StaleElementRefer
 options = Options()
 options.add_argument(r"user-data-dir=/home/ivand/.config/chromium")
 options.add_argument(r"profile-directory=Profile 2")
-driver = webdriver.Chrome(
-    service=Service(ChromeDriverManager().install()), options=options)
+driver = webdriver.Chrome(options=options)
 driver.implicitly_wait(1)
 
 
