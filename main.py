@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env -S python -i
 import time
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -8,8 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException
 
 options = Options()
-options.add_argument(r"user-data-dir=/home/ivand/.config/chromium")
-options.add_argument(r"profile-directory=Profile 10")
+options.add_argument(r"profile-directory=liauto")
 driver = webdriver.Chrome(options=options)
 driver.implicitly_wait(1)
 
@@ -266,26 +265,31 @@ class JobApplicationBot:
     def select_page(self, index):
         self.click_element(f"[aria-label='Page {index}']")
 
+    def apply_on_page(self, page):
+        self.select_page(page)
+        time.sleep(2)
+        self.load_all_jobs()
+        for i in range(len(bot.get_jobs()) - 1):
+            self.select_job(i)
+            time.sleep(1)
+            self.apply()
+
+    def apply_on_all(self):
+        self.keep_applying = True
+        i = 1
+        while self.keep_applying:
+            self.apply_on_page(i)
+            i += 1
+
+    def stop(self):
+        self.keep_applying = False
+
+
+bot = JobApplicationBot()
 
 java_jobs_url = "https://www.linkedin.com/jobs/search/?f_AL=true&f_WT=2&geoId=91000000&keywords=java%20software%20engineer&location=European%20Union&refresh=true"
 all_jobs_url = "https://www.linkedin.com/jobs/search/?f_AL=true&f_WT=2&geoId=91000000&keywords=software%20engineer&location=European%20Union&refresh=true"
+linkedin_url = "https://www.linkedin.com/"
 
-driver.get(all_jobs_url)
+driver.get(linkedin_url)
 
-
-time.sleep(3)
-bot = JobApplicationBot()
-
-
-def apply_on_page(page):
-    bot.select_page(page)
-    time.sleep(2)
-    bot.load_all_jobs()
-    for i in range(len(bot.get_jobs()) - 1):
-        bot.select_job(i)
-        time.sleep(1)
-        bot.apply()
-
-
-for i in range(1, 1000):
-    apply_on_page(i)
