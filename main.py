@@ -276,10 +276,18 @@ class JobApplicationBot:
 
     def apply_on_all(self):
         self.keep_applying = True
-        i = 1
         while self.keep_applying:
-            self.apply_on_page(i)
-            i += 1
+            self.apply_on_page(page)
+            page += 1
+
+    def go(self):
+        self.page = 1
+        while True:
+            try:
+                self.apply_on_all()
+            except:
+                pass
+
 
     def stop(self):
         self.keep_applying = False
